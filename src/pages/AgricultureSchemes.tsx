@@ -8,6 +8,9 @@ import { SchemesList } from '@/components/agriculture/SchemesList';
 import { SchemeModal } from '@/components/agriculture/SchemeModal';
 import { ApplicationForm } from '@/components/agriculture/ApplicationForm';
 import { ApplicationStatus } from '@/components/agriculture/ApplicationStatus';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export interface Scheme {
@@ -20,6 +23,7 @@ export interface Scheme {
 }
 
 const AgricultureSchemes = () => {
+  const navigate = useNavigate();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [selectedScheme, setSelectedScheme] = useState<Scheme | null>(null);
   const [showApplicationForm, setShowApplicationForm] = useState(false);
@@ -54,6 +58,18 @@ const AgricultureSchemes = () => {
         
         <main className="pt-20">
           <div className="container mx-auto px-4 py-8">
+            {/* Back to Home Button */}
+            <div className="mb-8">
+              <Button
+                variant="ghost"
+                onClick={() => navigate('/')}
+                className="mb-4 text-purple-600 hover:text-purple-800"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Home
+              </Button>
+            </div>
+
             <h1 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-8">
               Agriculture, Rural & Environment Schemes
             </h1>

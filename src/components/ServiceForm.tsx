@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -9,6 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle, Clock, FileText, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuthStore } from '@/store/authStore';
+import { toast } from 'sonner';
 
 interface Service {
   id: string;
@@ -51,7 +53,9 @@ export const ServiceForm = ({ service, isOpen, onClose }: ServiceFormProps) => {
   });
   const [showStatus, setShowStatus] = useState(false);
   const [applicationId, setApplicationId] = useState('');
-  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast: toastHook } = useToast();
+  const { user } = useAuthStore();
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -66,12 +70,17 @@ export const ServiceForm = ({ service, isOpen, onClose }: ServiceFormProps) => {
     return `${prefix}${number}`;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!user) {
+      toast.error('Please login to submit application');
+      return;
+    }
     
     // Validate required fields
     if (!formData.fullName || !formData.dateOfBirth || !formData.address || !formData.phoneNumber) {
-      toast({
+      toastHook({
         title: "Missing Information",
         description: "Please fill in all required fields.",
         variant: "destructive",
@@ -79,14 +88,41 @@ export const ServiceForm = ({ service, isOpen, onClose }: ServiceFormProps) => {
       return;
     }
 
-    const newApplicationId = generateApplicationId();
-    setApplicationId(newApplicationId);
-    setShowStatus(true);
+    setIsSubmitting(true);
 
-    toast({
-      title: "Application Submitted",
-      description: `Your application has been submitted successfully. Application ID: ${newApplicationId}`,
-    });
+    try {
+      const newApplicationId = generateApplicationId();
+      
+      // Save application to Supabase
+      const { error } = await supabase
+        .from('service_applications')
+        .insert({
+          id: newApplicationId,
+          user_id: user.id,
+          service_type: service.id,
+          service_name: service.title,
+          application_data: formData,
+          status: 'Submitted'
+        });
+
+      if (error) {
+        console.error('Error saving application:', error);
+        // Continue with local storage as fallback
+      }
+
+      setApplicationId(newApplicationId);
+      setShowStatus(true);
+
+      toastHook({
+        title: "Application Submitted",
+        description: `Your application has been submitted successfully. Application ID: ${newApplicationId}`,
+      });
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      toast.error('Failed to submit application. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getServiceSpecificFields = () => {
@@ -446,8 +482,12 @@ export const ServiceForm = ({ service, isOpen, onClose }: ServiceFormProps) => {
             <Button type="button" variant="outline" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" className="bg-purple-600 hover:bg-purple-700">
-              Submit Application
+            <Button 
+              type="submit" 
+              className="bg-purple-600 hover:bg-purple-700"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit Application'}
             </Button>
           </div>
         </form>

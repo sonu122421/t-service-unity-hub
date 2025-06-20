@@ -8,6 +8,9 @@ import { BankingSchemesList } from '@/components/banking/BankingSchemesList';
 import { BankingSchemeModal } from '@/components/banking/BankingSchemeModal';
 import { BankingApplicationForm } from '@/components/banking/BankingApplicationForm';
 import { BankingApplicationStatus } from '@/components/banking/BankingApplicationStatus';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export interface BankingScheme {
@@ -23,6 +26,7 @@ export interface BankingScheme {
 }
 
 const BankingSchemes = () => {
+  const navigate = useNavigate();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [selectedScheme, setSelectedScheme] = useState<BankingScheme | null>(null);
   const [showApplicationForm, setShowApplicationForm] = useState(false);
@@ -57,6 +61,18 @@ const BankingSchemes = () => {
         
         <main className="pt-20">
           <div className="container mx-auto px-4 py-8">
+            {/* Back to Home Button */}
+            <div className="mb-8">
+              <Button
+                variant="ghost"
+                onClick={() => navigate('/')}
+                className="mb-4 text-purple-600 hover:text-purple-800"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Home
+              </Button>
+            </div>
+
             <h1 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-8">
               Banking, Financial Services & Insurance Schemes
             </h1>
