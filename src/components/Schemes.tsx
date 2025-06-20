@@ -41,10 +41,11 @@ const schemes = [
   },
   {
     title: 'Business & Entrepreneurship',
-    schemes: '518 Schemes',
+    schemes: '10 Schemes',
     icon: Briefcase,
     color: 'bg-purple-50 border-purple-200 hover:border-purple-400',
-    iconColor: 'text-purple-600 bg-purple-100'
+    iconColor: 'text-purple-600 bg-purple-100',
+    route: '/business-entrepreneurship'
   },
   {
     title: 'Education & Learning',

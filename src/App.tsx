@@ -17,6 +17,7 @@ import HealthServices from "./pages/HealthServices";
 import EmploymentServices from "./pages/EmploymentServices";
 import AgricultureSchemes from "./pages/AgricultureSchemes";
 import BankingSchemes from "./pages/BankingSchemes";
+import BusinessEntrepreneurship from "./pages/BusinessEntrepreneurship";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/employment-services" element={<EmploymentServices />} />
             <Route path="/agriculture-schemes" element={<AgricultureSchemes />} />
             <Route path="/banking-schemes" element={<BankingSchemes />} />
+            <Route path="/business-entrepreneurship" element={<BusinessEntrepreneurship />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
