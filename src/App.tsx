@@ -10,6 +10,7 @@ import Feedback from "./pages/Feedback";
 import TWalletServices from "./pages/TWalletServices";
 import MeeSeva from "./pages/MeeSeva";
 import Dharani from "./pages/Dharani";
+import RTAServices from "./pages/RTAServices";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/twallet-services" element={<TWalletServices />} />
           <Route path="/meeseva" element={<MeeSeva />} />
           <Route path="/dharani" element={<Dharani />} />
+          <Route path="/rta-services" element={<RTAServices />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
