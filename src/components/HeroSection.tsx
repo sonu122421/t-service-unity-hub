@@ -19,13 +19,13 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
           <div className="space-y-8">
             <div className="space-y-6">
               <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                GOVERNMENT OF<br />TELANGANA
+                {t('hero.mainTitle')}
               </h1>
               <h2 className="text-2xl lg:text-3xl font-semibold text-yellow-300">
-                Unified Citizen Services Portal
+                {t('hero.subtitle')}
               </h2>
               <p className="text-lg lg:text-xl text-purple-100 leading-relaxed max-w-2xl">
-                One app for all your government services. Access Dharani, MeeSeva, T-Wallet, TS-bPASS and more through a single unified platform.
+                {t('hero.description')}
               </p>
             </div>
 
@@ -35,14 +35,14 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
                 onClick={onGetStarted}
                 className="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 flex items-center justify-center"
               >
-                Access Services
+                {t('hero.accessServices')}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button 
                 variant="outline"
                 className="border-2 border-white text-white hover:bg-white hover:text-purple-700 px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300"
               >
-                Learn More
+                {t('hero.learnMore')}
               </Button>
             </div>
 
@@ -55,7 +55,7 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
                 <div className="w-10 h-10 bg-purple-400 rounded-full border-2 border-purple-600 flex items-center justify-center text-white text-sm font-bold">+</div>
               </div>
               <p className="text-purple-100 font-medium">
-                <span className="text-white font-bold">1M+</span> citizens already using T-Service App
+                {t('hero.usageStats')}
               </p>
             </div>
           </div>
@@ -64,7 +64,7 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
           <div className="relative">
             {/* "New" badge */}
             <div className="absolute -top-4 -right-4 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold z-10">
-              New
+              {t('hero.newBadge')}
             </div>
             
             {/* Main service card */}
@@ -86,13 +86,13 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
                   onClick={onGetStarted}
                   className="w-full bg-green-500 hover:bg-green-600 text-white py-4 text-lg font-semibold rounded-lg transition-all duration-300"
                 >
-                  Access Services
+                  {t('hero.accessServices')}
                 </Button>
                 <Button 
                   variant="outline"
                   className="w-full border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white py-4 text-lg font-semibold rounded-lg transition-all duration-300"
                 >
-                  Download App
+                  {t('hero.downloadApp')}
                 </Button>
               </div>
 
@@ -100,19 +100,19 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
               <div className="space-y-3 text-gray-600">
                 <div className="flex items-center space-x-3">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>All government services in one place</span>
+                  <span>{t('hero.feature1')}</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Secure Aadhaar-based authentication</span>
+                  <span>{t('hero.feature2')}</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Real-time service tracking</span>
+                  <span>{t('hero.feature3')}</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <span>Multiple language support</span>
+                  <span>{t('hero.feature4')}</span>
                 </div>
               </div>
             </div>
