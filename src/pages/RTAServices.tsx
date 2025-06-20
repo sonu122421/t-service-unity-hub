@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Header } from '@/components/Header';
 import { 
   Car, 
   FileText, 
@@ -124,89 +124,50 @@ const RTAServices = () => {
 
   if (selectedService) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        {renderServiceComponent()}
+      <div className="min-h-screen bg-white">
+        <Header />
+        <div className="bg-gray-50">
+          {renderServiceComponent()}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
-            RTA Transport Services
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Complete online portal for all your vehicle and license related services. 
-            Quick, secure, and hassle-free processing.
-          </p>
-        </div>
+    <div className="min-h-screen bg-white">
+      <Header />
+      <div className="bg-gray-50">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
+              RTA Transport Services
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Complete online portal for all your vehicle and license related services. 
+              Quick, secure, and hassle-free processing.
+            </p>
+          </div>
 
-        {/* Main Services */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {mainServices.map((service) => {
-            const IconComponent = service.icon;
-            return (
-              <Card 
-                key={service.id}
-                className="hover:shadow-lg transition-all duration-300 cursor-pointer group hover:-translate-y-1"
-                onClick={() => handleServiceClick(service.id)}
-              >
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <div className={`p-3 rounded-lg ${service.color} text-white group-hover:scale-110 transition-transform`}>
-                      <IconComponent className="w-6 h-6" />
-                    </div>
-                    {service.popular && (
-                      <Badge className="bg-yellow-500 text-yellow-900 hover:bg-yellow-500">
-                        Popular
-                      </Badge>
-                    )}
-                  </div>
-                  <CardTitle className="text-lg font-semibold group-hover:text-purple-700 transition-colors">
-                    {service.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {service.description}
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-
-        {/* Additional Services */}
-        <div className="text-center mb-8">
-          <Button 
-            onClick={() => setShowMore(!showMore)}
-            variant="outline"
-            className="bg-purple-600 text-white hover:bg-purple-700 border-purple-600"
-          >
-            {showMore ? 'Show Less' : 'View More Services'}
-          </Button>
-        </div>
-
-        {showMore && (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {additionalServices.map((service) => {
+          {/* Main Services */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {mainServices.map((service) => {
               const IconComponent = service.icon;
               return (
                 <Card 
                   key={service.id}
                   className="hover:shadow-lg transition-all duration-300 cursor-pointer group hover:-translate-y-1"
-                  onClick={() => console.log(`${service.title} clicked - Coming Soon!`)}
+                  onClick={() => handleServiceClick(service.id)}
                 >
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
                       <div className={`p-3 rounded-lg ${service.color} text-white group-hover:scale-110 transition-transform`}>
                         <IconComponent className="w-6 h-6" />
                       </div>
-                      <Badge variant="outline" className="text-gray-500">
-                        Coming Soon
-                      </Badge>
+                      {service.popular && (
+                        <Badge className="bg-yellow-500 text-yellow-900 hover:bg-yellow-500">
+                          Popular
+                        </Badge>
+                      )}
                     </div>
                     <CardTitle className="text-lg font-semibold group-hover:text-purple-700 transition-colors">
                       {service.title}
@@ -221,29 +182,74 @@ const RTAServices = () => {
               );
             })}
           </div>
-        )}
 
-        {/* Information Section */}
-        <div className="bg-white rounded-lg p-6 shadow-sm">
-          <h3 className="text-xl font-semibold mb-4 text-gray-800">Important Information</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-medium text-gray-700 mb-2">Required Documents</h4>
-              <ul className="text-sm text-gray-600 space-y-1">
-                <li>• Aadhaar Card (Original + Photocopy)</li>
-                <li>• Age Proof (Birth Certificate/10th Certificate)</li>
-                <li>• Address Proof (Aadhaar/Utility Bill)</li>
-                <li>• Passport Size Photographs</li>
-                <li>• Medical Certificate (if applicable)</li>
-              </ul>
+          {/* Additional Services */}
+          <div className="text-center mb-8">
+            <Button 
+              onClick={() => setShowMore(!showMore)}
+              variant="outline"
+              className="bg-purple-600 text-white hover:bg-purple-700 border-purple-600"
+            >
+              {showMore ? 'Show Less' : 'View More Services'}
+            </Button>
+          </div>
+
+          {showMore && (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {additionalServices.map((service) => {
+                const IconComponent = service.icon;
+                return (
+                  <Card 
+                    key={service.id}
+                    className="hover:shadow-lg transition-all duration-300 cursor-pointer group hover:-translate-y-1"
+                    onClick={() => console.log(`${service.title} clicked - Coming Soon!`)}
+                  >
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between">
+                        <div className={`p-3 rounded-lg ${service.color} text-white group-hover:scale-110 transition-transform`}>
+                          <IconComponent className="w-6 h-6" />
+                        </div>
+                        <Badge variant="outline" className="text-gray-500">
+                          Coming Soon
+                        </Badge>
+                      </div>
+                      <CardTitle className="text-lg font-semibold group-hover:text-purple-700 transition-colors">
+                        {service.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {service.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
-            <div>
-              <h4 className="font-medium text-gray-700 mb-2">Support & Helpline</h4>
-              <div className="text-sm text-gray-600 space-y-1">
-                <p>📞 Helpline: 040-2345-6789</p>
-                <p>📧 Email: support@tsrta.gov.in</p>
-                <p>🕒 Office Hours: 10:00 AM - 5:00 PM</p>
-                <p>📱 WhatsApp: +91-9876543210</p>
+          )}
+
+          {/* Information Section */}
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800">Important Information</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-medium text-gray-700 mb-2">Required Documents</h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Aadhaar Card (Original + Photocopy)</li>
+                  <li>• Age Proof (Birth Certificate/10th Certificate)</li>
+                  <li>• Address Proof (Aadhaar/Utility Bill)</li>
+                  <li>• Passport Size Photographs</li>
+                  <li>• Medical Certificate (if applicable)</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-medium text-gray-700 mb-2">Support & Helpline</h4>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <p>📞 Helpline: 040-2345-6789</p>
+                  <p>📧 Email: support@tsrta.gov.in</p>
+                  <p>🕒 Office Hours: 10:00 AM - 5:00 PM</p>
+                  <p>📱 WhatsApp: +91-9876543210</p>
+                </div>
               </div>
             </div>
           </div>

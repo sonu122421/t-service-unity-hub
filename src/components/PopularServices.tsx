@@ -39,7 +39,7 @@ const services = [
     icon: Car,
     color: 'bg-orange-500',
     popular: true,
-    route: null
+    route: '/rta-services'
   },
   {
     id: 'twallet',
