@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -89,6 +88,7 @@ export const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
     // Simulate final verification and login
     setTimeout(() => {
       const user = {
+        id: crypto.randomUUID(), // Generate a unique ID for the user
         name: 'Citizen User',
         mobile: tempData.mobile || mobile,
         aadhaar: tempData.aadhaar || aadhaar,
