@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -31,7 +30,7 @@ const services = [
     icon: Home,
     color: 'bg-green-500',
     popular: true,
-    route: null
+    route: '/dharani'
   },
   {
     id: 'rta',
