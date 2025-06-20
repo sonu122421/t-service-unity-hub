@@ -217,9 +217,7 @@ export const HealthCardApplications = ({ onClose }: HealthCardApplicationsProps)
                       id="documents"
                       className="hidden"
                       accept=".pdf,.jpg,.jpeg,.png"
-                      onChange={handleFile
-
-Upload}
+                      onChange={handleFileUpload}
                     />
                     <label htmlFor="documents" className="cursor-pointer">
                       <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
