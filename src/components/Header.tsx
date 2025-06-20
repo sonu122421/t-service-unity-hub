@@ -73,6 +73,10 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
     navigate('/feedback');
   };
 
+  const handleNewsClick = () => {
+    navigate('/news');
+  };
+
   return (
     <header className="bg-white shadow-sm">
       {/* Top purple bar */}
@@ -107,7 +111,7 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
               <button onClick={scrollToServices} className="text-gray-700 hover:text-purple-700 font-medium">{t('header.services')}</button>
               <button onClick={scrollToSchemes} className="text-gray-700 hover:text-purple-700 font-medium">{t('header.schemes')}</button>
               <button onClick={handleFeedbackClick} className="text-gray-700 hover:text-purple-700 font-medium">{t('header.feedback')}</button>
-              <a href="#news" className="text-gray-700 hover:text-purple-700 font-medium">{t('header.news')}</a>
+              <button onClick={handleNewsClick} className="text-gray-700 hover:text-purple-700 font-medium">{t('header.news')}</button>
               <div className="relative group">
                 <button className="flex items-center text-gray-700 hover:text-purple-700 font-medium">
                   {t('header.help')}
@@ -179,7 +183,7 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
                 <button onClick={scrollToServices} className="text-gray-700 hover:text-purple-700 font-medium text-left">{t('header.services')}</button>
                 <button onClick={scrollToSchemes} className="text-gray-700 hover:text-purple-700 font-medium text-left">{t('header.schemes')}</button>
                 <button onClick={handleFeedbackClick} className="text-gray-700 hover:text-purple-700 font-medium text-left">{t('header.feedback')}</button>
-                <a href="#news" className="text-gray-700 hover:text-purple-700 font-medium">{t('header.news')}</a>
+                <button onClick={handleNewsClick} className="text-gray-700 hover:text-purple-700 font-medium text-left">{t('header.news')}</button>
                 <a href="#help" className="text-gray-700 hover:text-purple-700 font-medium">{t('header.help')}</a>
                 
                 <div className="pt-2">
