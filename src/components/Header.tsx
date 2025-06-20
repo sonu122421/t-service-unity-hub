@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, ChevronDown, Globe, User } from 'lucide-react';
@@ -53,6 +52,23 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
     }
   };
 
+  const scrollToSchemes = () => {
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const schemesSection = document.getElementById('schemes');
+        if (schemesSection) {
+          schemesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const schemesSection = document.getElementById('schemes');
+      if (schemesSection) {
+        schemesSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   const handleFeedbackClick = () => {
     navigate('/feedback');
   };
@@ -89,7 +105,7 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <button onClick={scrollToServices} className="text-gray-700 hover:text-purple-700 font-medium">Services</button>
-              <a href="#features" className="text-gray-700 hover:text-purple-700 font-medium">Features</a>
+              <button onClick={scrollToSchemes} className="text-gray-700 hover:text-purple-700 font-medium">Schemes</button>
               <button onClick={handleFeedbackClick} className="text-gray-700 hover:text-purple-700 font-medium">Feedback</button>
               <a href="#news" className="text-gray-700 hover:text-purple-700 font-medium">News</a>
               <div className="relative group">
@@ -164,7 +180,7 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
             <div className="md:hidden mt-4 py-4 border-t">
               <nav className="flex flex-col space-y-4">
                 <button onClick={scrollToServices} className="text-gray-700 hover:text-purple-700 font-medium text-left">Services</button>
-                <a href="#features" className="text-gray-700 hover:text-purple-700 font-medium">Features</a>
+                <button onClick={scrollToSchemes} className="text-gray-700 hover:text-purple-700 font-medium text-left">Schemes</button>
                 <button onClick={handleFeedbackClick} className="text-gray-700 hover:text-purple-700 font-medium text-left">Feedback</button>
                 <a href="#news" className="text-gray-700 hover:text-purple-700 font-medium">News</a>
                 <a href="#help" className="text-gray-700 hover:text-purple-700 font-medium">Help</a>

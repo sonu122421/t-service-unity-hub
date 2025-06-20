@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
 import { PopularServices } from '@/components/PopularServices';
-import { ServiceCategories } from '@/components/ServiceCategories';
+import { Schemes } from '@/components/Schemes';
 import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/AuthModal';
 
@@ -26,8 +26,8 @@ const Index = () => {
         <div id="services">
           <PopularServices />
         </div>
-        <div id="features">
-          <ServiceCategories />
+        <div id="schemes">
+          <Schemes />
         </div>
       </main>
 
