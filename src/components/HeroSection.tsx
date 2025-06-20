@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Shield, Smartphone, FileText, Globe } from 'lucide-react';
+import { Download, ArrowRight } from 'lucide-react';
 
 interface HeroSectionProps {
   onGetStarted: () => void;
@@ -10,105 +10,94 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
   return (
-    <section className="bg-gradient-to-br from-purple-700 via-purple-600 to-purple-800 text-white py-16 lg:py-24">
+    <section className="bg-gradient-to-br from-purple-600 via-purple-700 to-purple-800 text-white py-16 lg:py-24">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left side content */}
           <div className="space-y-6">
-            <div className="flex items-center space-x-2 text-yellow-300">
-              <Shield className="w-6 h-6" />
-              <span className="font-semibold">Government of Telangana</span>
-            </div>
-            
-            <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-              Unified Citizen Services Portal
+            <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
+              GOVERNMENT OF<br />
+              TELANGANA
             </h1>
             
-            <p className="text-xl lg:text-2xl text-purple-100 leading-relaxed">
-              Access all government services through a single platform. 
-              Secure, fast, and designed for every citizen of Telangana.
+            <h2 className="text-2xl lg:text-3xl font-semibold text-yellow-300">
+              Unified Citizen Services Portal
+            </h2>
+            
+            <p className="text-lg lg:text-xl text-purple-100 leading-relaxed max-w-lg">
+              One app for all your government services. Access Dharani, 
+              MeeSeva, T-Wallet, TS-bPASS and more through a single unified 
+              platform.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button 
                 onClick={onGetStarted}
                 size="lg"
-                className="bg-yellow-500 hover:bg-yellow-600 text-purple-800 font-semibold px-8 py-3 text-lg"
+                className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 text-lg rounded-full flex items-center"
               >
-                Get Started Now
+                Access Services
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Button 
                 size="lg"
                 variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-purple-800 px-8 py-3 text-lg"
+                className="border-white text-white hover:bg-white hover:text-purple-800 px-8 py-3 text-lg rounded-full flex items-center"
               >
-                Learn More
+                Download App
+                <Download className="w-5 h-5 ml-2" />
               </Button>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8">
-              <div className="text-center">
-                <div className="text-2xl font-bold">50L+</div>
-                <div className="text-sm text-purple-200">Citizens Served</div>
+            {/* User count */}
+            <div className="flex items-center space-x-4 pt-6">
+              <div className="flex -space-x-2">
+                <div className="w-8 h-8 rounded-full bg-white border-2 border-purple-600"></div>
+                <div className="w-8 h-8 rounded-full bg-white border-2 border-purple-600"></div>
+                <div className="w-8 h-8 rounded-full bg-white border-2 border-purple-600"></div>
+                <div className="w-8 h-8 rounded-full bg-white border-2 border-purple-600"></div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">100+</div>
-                <div className="text-sm text-purple-200">Services</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">24/7</div>
-                <div className="text-sm text-purple-200">Availability</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">99.9%</div>
-                <div className="text-sm text-purple-200">Uptime</div>
+              <div className="text-white">
+                <span className="font-bold">1M+</span> citizens already using T-Service App
               </div>
             </div>
           </div>
 
-          <div className="relative">
-            <Card className="bg-white/10 backdrop-blur-sm border-white/20">
-              <CardContent className="p-8">
-                <div className="space-y-6">
-                  <div className="text-center">
-                    <img 
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5LPgMSCXDqdmaLGRK8YZc2GbLwEIKXX_LcQ&s" 
-                      alt="Sri A. Revanth Reddy" 
-                      className="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-4 border-white/20"
-                    />
-                    <h3 className="text-xl font-bold mb-2">T-Service App</h3>
-                    <p className="text-purple-100 mb-6">Your gateway to all government services</p>
+          {/* Right side - App mockup */}
+          <div className="relative flex justify-center lg:justify-end">
+            <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-2xl max-w-sm w-full">
+              <CardContent className="p-6">
+                <div className="space-y-4">
+                  {/* App header */}
+                  <div className="bg-blue-600 text-white p-4 rounded-lg text-center">
+                    <h3 className="text-xl font-bold mb-2">T-Super App</h3>
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3">
-                      <Smartphone className="w-5 h-5 text-yellow-300" />
-                      <span>Mobile-First Design</span>
+                  {/* App buttons */}
+                  <div className="space-y-3">
+                    <div className="bg-green-500 text-white p-4 rounded-lg text-center font-semibold">
+                      Access Services
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <Shield className="w-5 h-5 text-yellow-300" />
-                      <span>Aadhaar-based Authentication</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <FileText className="w-5 h-5 text-yellow-300" />
-                      <span>DigiLocker Integration</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <Globe className="w-5 h-5 text-yellow-300" />
-                      <span>Multi-language Support</span>
+                    <div className="bg-blue-500 text-white p-4 rounded-lg text-center font-semibold">
+                      Download App
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3 pt-4">
-                    <Button className="bg-green-600 hover:bg-green-700 text-white">
-                      Download
-                    </Button>
-                    <Button variant="outline" className="border-white text-white hover:bg-white hover:text-purple-800">
-                      Web App
-                    </Button>
+                  {/* App features */}
+                  <div className="text-center text-gray-600 text-sm space-y-2">
+                    <p>✓ All government services in one place</p>
+                    <p>✓ Secure Aadhaar-based authentication</p>
+                    <p>✓ Real-time service tracking</p>
+                    <p>✓ Multiple language support</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
+
+            {/* Floating "New" badge */}
+            <div className="absolute -top-4 -right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+              New
+            </div>
           </div>
         </div>
       </div>
