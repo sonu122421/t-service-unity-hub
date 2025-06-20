@@ -32,11 +32,12 @@ const schemes = [
     route: '/agriculture-schemes'
   },
   {
-    title: 'Banking, Financial Services and Insurance',
-    schemes: '226 Schemes',
+    title: 'Banking, Financial Services & Insurance',
+    schemes: '5 Schemes',
     icon: Banknote,
     color: 'bg-orange-50 border-orange-200 hover:border-orange-400',
-    iconColor: 'text-orange-600 bg-orange-100'
+    iconColor: 'text-orange-600 bg-orange-100',
+    route: '/banking-schemes'
   },
   {
     title: 'Business & Entrepreneurship',
