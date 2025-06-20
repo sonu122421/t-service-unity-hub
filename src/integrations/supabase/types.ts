@@ -166,6 +166,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "fk_health_applications_scheme_id"
+            columns: ["scheme_id"]
+            isOneToOne: false
+            referencedRelation: "health_scheme_definitions"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "health_applications_scheme_id_fkey"
             columns: ["scheme_id"]
             isOneToOne: false
@@ -260,6 +267,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "fk_health_status_tracking_application_id"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "health_applications"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "health_status_tracking_application_id_fkey"
             columns: ["application_id"]

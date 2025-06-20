@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuthStore } from '@/store/authStore';
 import { supabase } from '@/integrations/supabase/client';
-import { Heart, Send, FileText, Upload } from 'lucide-react';
+import { Heart, Send, FileText, Upload, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface HealthScheme {
@@ -40,7 +40,19 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user } = useAuthStore();
 
-  const formFields = scheme.form_fields || {};
+  // Parse form fields - handle both string and array formats
+  let formFields: any[] = [];
+  if (scheme.form_fields) {
+    if (typeof scheme.form_fields === 'string') {
+      try {
+        formFields = JSON.parse(scheme.form_fields);
+      } catch (e) {
+        console.error('Error parsing form fields:', e);
+      }
+    } else if (Array.isArray(scheme.form_fields)) {
+      formFields = scheme.form_fields;
+    }
+  }
 
   const handleInputChange = (fieldName: string, value: string) => {
     setApplicationData(prev => ({
@@ -60,24 +72,24 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
     }
   };
 
-  const renderFormField = (fieldName: string, fieldConfig: any) => {
-    const { type, required, label, options } = fieldConfig;
+  const renderFormField = (field: any, index: number) => {
+    const { name, label, type, required, options } = field;
+    const fieldLabel = label || name;
 
     switch (type) {
       case 'text':
-      case 'tel':
       case 'email':
         return (
-          <div key={fieldName} className="space-y-2">
-            <Label htmlFor={fieldName}>
-              {label} {required && <span className="text-red-500">*</span>}
+          <div key={index} className="space-y-2">
+            <Label htmlFor={name}>
+              {fieldLabel} {required && <span className="text-red-500">*</span>}
             </Label>
             <Input
-              id={fieldName}
+              id={name}
               type={type}
-              value={applicationData[fieldName] || ''}
-              onChange={(e) => handleInputChange(fieldName, e.target.value)}
-              placeholder={`Enter ${label.toLowerCase()}`}
+              value={applicationData[name] || ''}
+              onChange={(e) => handleInputChange(name, e.target.value)}
+              placeholder={`Enter ${fieldLabel.toLowerCase()}`}
               required={required}
             />
           </div>
@@ -85,16 +97,16 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
 
       case 'number':
         return (
-          <div key={fieldName} className="space-y-2">
-            <Label htmlFor={fieldName}>
-              {label} {required && <span className="text-red-500">*</span>}
+          <div key={index} className="space-y-2">
+            <Label htmlFor={name}>
+              {fieldLabel} {required && <span className="text-red-500">*</span>}
             </Label>
             <Input
-              id={fieldName}
+              id={name}
               type="number"
-              value={applicationData[fieldName] || ''}
-              onChange={(e) => handleInputChange(fieldName, e.target.value)}
-              placeholder={`Enter ${label.toLowerCase()}`}
+              value={applicationData[name] || ''}
+              onChange={(e) => handleInputChange(name, e.target.value)}
+              placeholder={`Enter ${fieldLabel.toLowerCase()}`}
               required={required}
             />
           </div>
@@ -102,15 +114,15 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
 
       case 'date':
         return (
-          <div key={fieldName} className="space-y-2">
-            <Label htmlFor={fieldName}>
-              {label} {required && <span className="text-red-500">*</span>}
+          <div key={index} className="space-y-2">
+            <Label htmlFor={name}>
+              {fieldLabel} {required && <span className="text-red-500">*</span>}
             </Label>
             <Input
-              id={fieldName}
+              id={name}
               type="date"
-              value={applicationData[fieldName] || ''}
-              onChange={(e) => handleInputChange(fieldName, e.target.value)}
+              value={applicationData[name] || ''}
+              onChange={(e) => handleInputChange(name, e.target.value)}
               required={required}
             />
           </div>
@@ -118,17 +130,17 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
 
       case 'select':
         return (
-          <div key={fieldName} className="space-y-2">
-            <Label htmlFor={fieldName}>
-              {label} {required && <span className="text-red-500">*</span>}
+          <div key={index} className="space-y-2">
+            <Label htmlFor={name}>
+              {fieldLabel} {required && <span className="text-red-500">*</span>}
             </Label>
             <Select
-              value={applicationData[fieldName] || ''}
-              onValueChange={(value) => handleInputChange(fieldName, value)}
+              value={applicationData[name] || ''}
+              onValueChange={(value) => handleInputChange(name, value)}
               required={required}
             >
               <SelectTrigger>
-                <SelectValue placeholder={`Select ${label.toLowerCase()}`} />
+                <SelectValue placeholder={`Select ${fieldLabel.toLowerCase()}`} />
               </SelectTrigger>
               <SelectContent>
                 {options?.map((option: string) => (
@@ -143,15 +155,15 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
 
       case 'textarea':
         return (
-          <div key={fieldName} className="space-y-2">
-            <Label htmlFor={fieldName}>
-              {label} {required && <span className="text-red-500">*</span>}
+          <div key={index} className="space-y-2">
+            <Label htmlFor={name}>
+              {fieldLabel} {required && <span className="text-red-500">*</span>}
             </Label>
             <Textarea
-              id={fieldName}
-              value={applicationData[fieldName] || ''}
-              onChange={(e) => handleInputChange(fieldName, e.target.value)}
-              placeholder={`Enter ${label.toLowerCase()}`}
+              id={name}
+              value={applicationData[name] || ''}
+              onChange={(e) => handleInputChange(name, e.target.value)}
+              placeholder={`Enter ${fieldLabel.toLowerCase()}`}
               required={required}
               rows={3}
             />
@@ -160,27 +172,28 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
 
       case 'file':
         return (
-          <div key={fieldName} className="space-y-2">
-            <Label htmlFor={fieldName}>
-              {label} {required && <span className="text-red-500">*</span>}
+          <div key={index} className="space-y-2">
+            <Label htmlFor={name}>
+              {fieldLabel} {required && <span className="text-red-500">*</span>}
             </Label>
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
               <input
                 type="file"
-                id={fieldName}
+                id={name}
                 className="hidden"
                 accept=".pdf,.jpg,.jpeg,.png"
-                onChange={(e) => handleFileUpload(fieldName, e)}
+                onChange={(e) => handleFileUpload(name, e)}
                 required={required}
               />
-              <label htmlFor={fieldName} className="cursor-pointer">
+              <label htmlFor={name} className="cursor-pointer">
                 <Upload className="w-6 h-6 text-gray-400 mx-auto mb-2" />
                 <p className="text-sm text-gray-600">
-                  Click to upload {label.toLowerCase()}
+                  Click to upload {fieldLabel.toLowerCase()}
                 </p>
-                {applicationData[fieldName] && (
-                  <p className="text-sm text-green-600 mt-2">
-                    ✓ {applicationData[fieldName]}
+                {applicationData[name] && (
+                  <p className="text-sm text-green-600 mt-2 flex items-center justify-center">
+                    <CheckCircle className="w-4 h-4 mr-1" />
+                    {applicationData[name]}
                   </p>
                 )}
               </label>
@@ -200,9 +213,9 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
     }
 
     // Validate required fields
-    const requiredFields = Object.entries(formFields)
-      .filter(([_, config]: [string, any]) => config.required)
-      .map(([fieldName, _]) => fieldName);
+    const requiredFields = formFields
+      .filter(field => field.required)
+      .map(field => field.name);
 
     const missingFields = requiredFields.filter(field => !applicationData[field]);
 
@@ -214,17 +227,39 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
     setIsSubmitting(true);
     
     try {
-      const { error } = await supabase
+      const { data: applicationResult, error: applicationError } = await supabase
         .from('health_applications')
         .insert({
           user_id: user.id,
           scheme_id: scheme.id,
           application_data: applicationData
-        });
+        })
+        .select()
+        .single();
 
-      if (error) throw error;
+      if (applicationError) throw applicationError;
 
-      toast.success(`Application submitted successfully! Reference ID: HA${Date.now()}`);
+      // Create status tracking entry
+      if (applicationResult && scheme.status_stages && scheme.status_stages.length > 0) {
+        const { error: statusError } = await supabase
+          .from('health_status_tracking')
+          .insert({
+            application_id: applicationResult.id,
+            current_status: scheme.status_stages[0],
+            status_history: [{
+              status: scheme.status_stages[0],
+              timestamp: new Date().toISOString(),
+              remarks: 'Application submitted successfully'
+            }]
+          });
+
+        if (statusError) {
+          console.error('Status tracking error:', statusError);
+        }
+      }
+
+      const referenceId = `HA${Date.now()}`;
+      toast.success(`Application submitted successfully! Reference ID: ${referenceId}`);
       onClose();
     } catch (error) {
       console.error('Error submitting application:', error);
@@ -245,6 +280,12 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
         </DialogHeader>
         
         <div className="space-y-6 mt-4">
+          {scheme.highlight && (
+            <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+              <p className="text-orange-800 font-medium text-sm">{scheme.highlight}</p>
+            </div>
+          )}
+
           <Card>
             <CardHeader>
               <CardTitle className="text-xl text-orange-700">Application Form</CardTitle>
@@ -252,9 +293,7 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
-                {Object.entries(formFields).map(([fieldName, fieldConfig]) =>
-                  renderFormField(fieldName, fieldConfig)
-                )}
+                {formFields.map((field, index) => renderFormField(field, index))}
               </div>
 
               <Button 
@@ -279,10 +318,16 @@ export const HealthApplicationForm = ({ scheme, onClose }: HealthApplicationForm
 
           {scheme.required_documents && scheme.required_documents.length > 0 && (
             <div className="bg-gray-50 p-4 rounded-lg">
-              <h4 className="font-medium text-gray-800 mb-2">Required Documents</h4>
+              <h4 className="font-medium text-gray-800 mb-2 flex items-center">
+                <FileText className="w-4 h-4 mr-2" />
+                Required Documents
+              </h4>
               <ul className="text-sm text-gray-600 space-y-1">
                 {scheme.required_documents.map((document, index) => (
-                  <li key={index}>• {document}</li>
+                  <li key={index} className="flex items-center">
+                    <CheckCircle className="w-3 h-3 mr-2 text-green-500" />
+                    {document}
+                  </li>
                 ))}
               </ul>
             </div>

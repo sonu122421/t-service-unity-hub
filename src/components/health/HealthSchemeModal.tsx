@@ -6,11 +6,12 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
   Heart, 
-  FileText, 
-  CheckCircle, 
   Users, 
-  CreditCard, 
+  FileText, 
+  Gift, 
+  DollarSign, 
   ExternalLink,
+  CheckCircle,
   ArrowRight
 } from 'lucide-react';
 
@@ -39,13 +40,13 @@ interface HealthSchemeModalProps {
 }
 
 export const HealthSchemeModal = ({ scheme, onClose, onApply }: HealthSchemeModalProps) => {
-  const handleApplyClick = () => {
+  const handleExternalLink = () => {
     if (scheme.external_link) {
       window.open(scheme.external_link, '_blank');
-    } else if (scheme.is_application_enabled && !scheme.is_info_only) {
-      onApply();
     }
   };
+
+  const isApplicationEnabled = scheme.is_application_enabled && !scheme.is_info_only;
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
@@ -55,48 +56,39 @@ export const HealthSchemeModal = ({ scheme, onClose, onApply }: HealthSchemeModa
             <Heart className="w-6 h-6 mr-2 text-orange-600" />
             {scheme.name}
           </DialogTitle>
-          <div className="flex items-center space-x-2 mt-2">
-            <Badge variant="secondary" className="bg-orange-100 text-orange-700">
-              {scheme.category}
-            </Badge>
-            {scheme.target_community && (
-              <Badge variant="outline" className="border-orange-200 text-orange-600">
-                {scheme.target_community}
-              </Badge>
-            )}
-          </div>
+          <Badge variant="secondary" className="w-fit bg-orange-100 text-orange-700">
+            {scheme.category}
+          </Badge>
         </DialogHeader>
         
         <div className="space-y-6 mt-4">
           {/* Highlight Section */}
           {scheme.highlight && (
-            <Card>
-              <CardContent className="pt-6">
-                <div className="bg-gradient-to-r from-orange-100 to-red-100 border border-orange-200 rounded-lg p-4">
-                  <div className="flex items-center">
-                    <CreditCard className="w-5 h-5 text-orange-600 mr-2" />
-                    <span className="font-semibold text-orange-800">{scheme.highlight}</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="bg-gradient-to-r from-orange-50 to-red-50 border border-orange-200 rounded-lg p-4">
+              <div className="flex items-center">
+                <CheckCircle className="w-5 h-5 text-orange-600 mr-2" />
+                <p className="text-orange-800 font-semibold">{scheme.highlight}</p>
+              </div>
+            </div>
           )}
 
           {/* Description */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg text-orange-700 flex items-center">
-                <FileText className="w-5 h-5 mr-2" />
-                About This Scheme
-              </CardTitle>
+              <CardTitle className="text-lg text-orange-700">About This Scheme</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-700 leading-relaxed">{scheme.description}</p>
+              {scheme.target_community && (
+                <div className="mt-3 flex items-center text-sm text-gray-600">
+                  <Users className="w-4 h-4 mr-1" />
+                  <span><strong>Target Community:</strong> {scheme.target_community}</span>
+                </div>
+              )}
               {scheme.funding_amount && (
-                <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-                  <span className="text-green-800 font-semibold">
-                    Financial Support: {scheme.funding_amount}
-                  </span>
+                <div className="mt-2 flex items-center text-sm text-green-600">
+                  <DollarSign className="w-4 h-4 mr-1" />
+                  <span><strong>Funding:</strong> {scheme.funding_amount}</span>
                 </div>
               )}
             </CardContent>
@@ -114,10 +106,10 @@ export const HealthSchemeModal = ({ scheme, onClose, onApply }: HealthSchemeModa
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
-                    {scheme.eligibility.map((criterion, index) => (
+                    {scheme.eligibility.map((criteria, index) => (
                       <li key={index} className="flex items-start">
                         <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{criterion}</span>
+                        <span className="text-gray-700">{criteria}</span>
                       </li>
                     ))}
                   </ul>
@@ -130,7 +122,7 @@ export const HealthSchemeModal = ({ scheme, onClose, onApply }: HealthSchemeModa
               <Card>
                 <CardHeader>
                   <CardTitle className="text-lg text-orange-700 flex items-center">
-                    <Heart className="w-5 h-5 mr-2" />
+                    <Gift className="w-5 h-5 mr-2" />
                     Benefits
                   </CardTitle>
                 </CardHeader>
@@ -138,8 +130,8 @@ export const HealthSchemeModal = ({ scheme, onClose, onApply }: HealthSchemeModa
                   <ul className="space-y-2">
                     {scheme.benefits.map((benefit, index) => (
                       <li key={index} className="flex items-start">
-                        <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{benefit}</span>
+                        <CheckCircle className="w-4 h-4 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-700">{benefit}</span>
                       </li>
                     ))}
                   </ul>
@@ -162,7 +154,7 @@ export const HealthSchemeModal = ({ scheme, onClose, onApply }: HealthSchemeModa
                   {scheme.required_documents.map((document, index) => (
                     <div key={index} className="flex items-center p-2 bg-gray-50 rounded">
                       <FileText className="w-4 h-4 text-gray-500 mr-2" />
-                      <span className="text-gray-700 text-sm">{document}</span>
+                      <span className="text-gray-700">{document}</span>
                     </div>
                   ))}
                 </div>
@@ -180,11 +172,11 @@ export const HealthSchemeModal = ({ scheme, onClose, onApply }: HealthSchemeModa
                 <div className="flex flex-wrap gap-2">
                   {scheme.status_stages.map((stage, index) => (
                     <div key={index} className="flex items-center">
-                      <Badge variant="outline" className="text-xs">
+                      <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
                         {index + 1}. {stage}
                       </Badge>
                       {index < scheme.status_stages!.length - 1 && (
-                        <ArrowRight className="w-3 h-3 text-gray-400 mx-1" />
+                        <ArrowRight className="w-4 h-4 text-gray-400 mx-2" />
                       )}
                     </div>
                   ))}
@@ -194,35 +186,33 @@ export const HealthSchemeModal = ({ scheme, onClose, onApply }: HealthSchemeModa
           )}
 
           {/* Action Buttons */}
-          <div className="flex gap-4 pt-4">
-            {scheme.external_link ? (
+          <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t">
+            {isApplicationEnabled && (
               <Button 
-                className="flex-1 bg-orange-600 hover:bg-orange-700 py-6 text-lg"
-                onClick={handleApplyClick}
+                className="bg-orange-600 hover:bg-orange-700 text-white flex-1"
+                onClick={onApply}
               >
-                <ExternalLink className="w-5 h-5 mr-2" />
-                Visit Official Portal
+                <FileText className="w-4 h-4 mr-2" />
+                Apply for This Scheme
               </Button>
-            ) : scheme.is_application_enabled && !scheme.is_info_only ? (
-              <Button 
-                className="flex-1 bg-orange-600 hover:bg-orange-700 py-6 text-lg"
-                onClick={handleApplyClick}
-              >
-                <FileText className="w-5 h-5 mr-2" />
-                Apply Now
-              </Button>
-            ) : (
-              <div className="flex-1 p-4 bg-gray-100 rounded-lg text-center">
-                <p className="text-gray-600">
-                  {scheme.is_info_only ? 
-                    'This is an informational scheme. Contact relevant authorities for more details.' :
-                    'Applications are currently not available for this scheme.'
-                  }
-                </p>
-              </div>
             )}
             
-            <Button variant="outline" onClick={onClose} className="px-8">
+            {scheme.external_link && (
+              <Button 
+                variant="outline"
+                onClick={handleExternalLink}
+                className="border-orange-200 text-orange-700 hover:bg-orange-50"
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Visit Official Website
+              </Button>
+            )}
+            
+            <Button 
+              variant="ghost"
+              onClick={onClose}
+              className="text-gray-600 hover:text-gray-800"
+            >
               Close
             </Button>
           </div>
