@@ -14,6 +14,7 @@ import Dharani from "./pages/Dharani";
 import RTAServices from "./pages/RTAServices";
 import EducationServices from "./pages/EducationServices";
 import HealthServices from "./pages/HealthServices";
+import HousingServices from "./pages/HousingServices";
 import EmploymentServices from "./pages/EmploymentServices";
 import AgricultureSchemes from "./pages/AgricultureSchemes";
 import BankingSchemes from "./pages/BankingSchemes";
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/rta-services" element={<RTAServices />} />
             <Route path="/education-services" element={<EducationServices />} />
             <Route path="/health-services" element={<HealthServices />} />
+            <Route path="/housing-services" element={<HousingServices />} />
             <Route path="/employment-services" element={<EmploymentServices />} />
             <Route path="/agriculture-schemes" element={<AgricultureSchemes />} />
             <Route path="/banking-schemes" element={<BankingSchemes />} />

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -64,10 +65,11 @@ const schemes = [
   },
   {
     title: 'Housing & Shelter',
-    schemes: '99 Schemes',
+    schemes: '5 Schemes',
     icon: Building,
     color: 'bg-blue-50 border-blue-200 hover:border-blue-400',
-    iconColor: 'text-blue-600 bg-blue-100'
+    iconColor: 'text-blue-600 bg-blue-100',
+    route: '/housing-services'
   },
   {
     title: 'Public Safety, Law & Justice',
