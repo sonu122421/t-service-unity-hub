@@ -10,14 +10,25 @@ import { AuthModal } from '@/components/AuthModal';
 const Index = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
+  const scrollToServices = () => {
+    const servicesSection = document.getElementById('services');
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header onAuthClick={() => setIsAuthModalOpen(true)} />
       
       <main>
-        <HeroSection onGetStarted={() => setIsAuthModalOpen(true)} />
-        <PopularServices />
-        <ServiceCategories />
+        <HeroSection onGetStarted={scrollToServices} />
+        <div id="services">
+          <PopularServices />
+        </div>
+        <div id="features">
+          <ServiceCategories />
+        </div>
       </main>
 
       <Footer />

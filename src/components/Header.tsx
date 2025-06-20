@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, ChevronDown, Globe, User } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface HeaderProps {
   onAuthClick?: () => void;
@@ -13,6 +13,7 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated, user, logout } = useAuthStore();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleAuthAction = () => {
     if (isAuthenticated) {
@@ -33,6 +34,27 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
     } else {
       navigate('/');
     }
+  };
+
+  const scrollToServices = () => {
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const servicesSection = document.getElementById('services');
+        if (servicesSection) {
+          servicesSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const servicesSection = document.getElementById('services');
+      if (servicesSection) {
+        servicesSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleFeedbackClick = () => {
+    navigate('/feedback');
   };
 
   return (
@@ -66,9 +88,9 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#services" className="text-gray-700 hover:text-purple-700 font-medium">Services</a>
+              <button onClick={scrollToServices} className="text-gray-700 hover:text-purple-700 font-medium">Services</button>
               <a href="#features" className="text-gray-700 hover:text-purple-700 font-medium">Features</a>
-              <a href="#feedback" className="text-gray-700 hover:text-purple-700 font-medium">Feedback</a>
+              <button onClick={handleFeedbackClick} className="text-gray-700 hover:text-purple-700 font-medium">Feedback</button>
               <a href="#news" className="text-gray-700 hover:text-purple-700 font-medium">News</a>
               <div className="relative group">
                 <button className="flex items-center text-gray-700 hover:text-purple-700 font-medium">
@@ -141,9 +163,9 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
           {isMenuOpen && (
             <div className="md:hidden mt-4 py-4 border-t">
               <nav className="flex flex-col space-y-4">
-                <a href="#services" className="text-gray-700 hover:text-purple-700 font-medium">Services</a>
+                <button onClick={scrollToServices} className="text-gray-700 hover:text-purple-700 font-medium text-left">Services</button>
                 <a href="#features" className="text-gray-700 hover:text-purple-700 font-medium">Features</a>
-                <a href="#feedback" className="text-gray-700 hover:text-purple-700 font-medium">Feedback</a>
+                <button onClick={handleFeedbackClick} className="text-gray-700 hover:text-purple-700 font-medium text-left">Feedback</button>
                 <a href="#news" className="text-gray-700 hover:text-purple-700 font-medium">News</a>
                 <a href="#help" className="text-gray-700 hover:text-purple-700 font-medium">Help</a>
                 

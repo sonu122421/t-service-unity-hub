@@ -70,7 +70,7 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
                 <div className="space-y-4">
                   {/* App header */}
                   <div className="bg-blue-600 text-white p-4 rounded-lg text-center">
-                    <h3 className="text-xl font-bold mb-2">T-Super App</h3>
+                    <h3 className="text-xl font-bold mb-2">T-Service</h3>
                   </div>
 
                   {/* App buttons */}
