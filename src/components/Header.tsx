@@ -27,6 +27,14 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
     navigate('/');
   };
 
+  const handleLogoClick = () => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <header className="bg-white shadow-sm">
       {/* Top purple bar */}
@@ -41,7 +49,10 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Logo and title */}
-            <div className="flex items-center space-x-4">
+            <div 
+              className="flex items-center space-x-4 cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={handleLogoClick}
+            >
               <img 
                 src="https://www.en.etemaaddaily.com/pages/world/hyderabad/7982telangana.png" 
                 alt="Telangana Government" 
