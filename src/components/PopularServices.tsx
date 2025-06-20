@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useNavigate } from 'react-router-dom';
 import { 
   FileText, 
   Home, 
@@ -20,7 +21,8 @@ const services = [
     description: 'Birth, Death, Income, Caste certificates',
     icon: FileText,
     color: 'bg-blue-500',
-    popular: true
+    popular: true,
+    route: null
   },
   {
     id: 'dharani',
@@ -28,7 +30,8 @@ const services = [
     description: 'Land records, mutations, passbooks',
     icon: Home,
     color: 'bg-green-500',
-    popular: true
+    popular: true,
+    route: null
   },
   {
     id: 'rta',
@@ -36,7 +39,8 @@ const services = [
     description: 'Vehicle registration, driving license',
     icon: Car,
     color: 'bg-orange-500',
-    popular: true
+    popular: true,
+    route: null
   },
   {
     id: 'twallet',
@@ -44,7 +48,8 @@ const services = [
     description: 'Digital payments and transactions',
     icon: Wallet,
     color: 'bg-purple-500',
-    popular: true
+    popular: true,
+    route: '/twallet-services'
   },
   {
     id: 'education',
@@ -52,7 +57,8 @@ const services = [
     description: 'Scholarships, admissions, certificates',
     icon: GraduationCap,
     color: 'bg-indigo-500',
-    popular: false
+    popular: false,
+    route: null
   },
   {
     id: 'health',
@@ -60,7 +66,8 @@ const services = [
     description: 'Aarogyasri, medical certificates',
     icon: Heart,
     color: 'bg-red-500',
-    popular: false
+    popular: false,
+    route: null
   },
   {
     id: 'employment',
@@ -68,7 +75,8 @@ const services = [
     description: 'Job registration, unemployment allowance',
     icon: Briefcase,
     color: 'bg-teal-500',
-    popular: false
+    popular: false,
+    route: null
   },
   {
     id: 'welfare',
@@ -76,11 +84,23 @@ const services = [
     description: 'Pensions, subsidies, social security',
     icon: Shield,
     color: 'bg-pink-500',
-    popular: false
+    popular: false,
+    route: null
   }
 ];
 
 export const PopularServices = () => {
+  const navigate = useNavigate();
+
+  const handleServiceClick = (service: typeof services[0]) => {
+    if (service.route) {
+      navigate(service.route);
+    } else {
+      console.log(`Service clicked: ${service.id}`);
+      // Handle other service clicks here
+    }
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -101,6 +121,7 @@ export const PopularServices = () => {
               <Card 
                 key={service.id}
                 className="hover:shadow-lg transition-all duration-300 cursor-pointer group hover:-translate-y-1"
+                onClick={() => handleServiceClick(service)}
               >
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
