@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Feedback from "./pages/Feedback";
 import TWalletServices from "./pages/TWalletServices";
+import MeeSeva from "./pages/MeeSeva";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/twallet-services" element={<TWalletServices />} />
+          <Route path="/meeseva" element={<MeeSeva />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

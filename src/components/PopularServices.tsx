@@ -22,7 +22,7 @@ const services = [
     icon: FileText,
     color: 'bg-blue-500',
     popular: true,
-    route: null
+    route: '/meeseva'
   },
   {
     id: 'dharani',
