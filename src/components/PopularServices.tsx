@@ -61,7 +61,7 @@ const services = [
     icon: GraduationCap,
     color: 'bg-indigo-500',
     popular: false,
-    route: null
+    route: '/education-services'
   },
   {
     id: 'health',
@@ -70,7 +70,7 @@ const services = [
     icon: Heart,
     color: 'bg-red-500',
     popular: false,
-    route: null
+    route: '/health-services'
   },
   {
     id: 'employment',

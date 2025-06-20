@@ -13,6 +13,7 @@ import MeeSeva from "./pages/MeeSeva";
 import Dharani from "./pages/Dharani";
 import RTAServices from "./pages/RTAServices";
 import EducationServices from "./pages/EducationServices";
+import HealthServices from "./pages/HealthServices";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/dharani" element={<Dharani />} />
             <Route path="/rta-services" element={<RTAServices />} />
             <Route path="/education-services" element={<EducationServices />} />
+            <Route path="/health-services" element={<HealthServices />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
