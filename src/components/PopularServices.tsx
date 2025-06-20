@@ -79,7 +79,7 @@ const services = [
     icon: Briefcase,
     color: 'bg-teal-500',
     popular: false,
-    route: null
+    route: '/employment-services'
   },
   {
     id: 'welfare',
