@@ -4,19 +4,19 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
   Home,
-  Bank,
+  Banknote,
   Briefcase,
   Book,
-  Health,
-  Housing,
-  Justice,
-  Science,
-  Skills,
-  Women,
-  Sports,
-  Transport,
-  Travel,
-  Utility
+  Heart,
+  Building,
+  Scale,
+  Cpu,
+  Users,
+  UserCheck,
+  Trophy,
+  Truck,
+  MapPin,
+  Settings
 } from 'lucide-react';
 
 const schemes = [
@@ -30,7 +30,7 @@ const schemes = [
   {
     title: 'Banking, Financial Services and Insurance',
     schemes: '226 Schemes',
-    icon: Bank,
+    icon: Banknote,
     color: 'bg-orange-50 border-orange-200 hover:border-orange-400',
     iconColor: 'text-orange-600 bg-orange-100'
   },
@@ -51,77 +51,77 @@ const schemes = [
   {
     title: 'Health & Wellness',
     schemes: '216 Schemes',
-    icon: Health,
+    icon: Heart,
     color: 'bg-green-50 border-green-200 hover:border-green-400',
     iconColor: 'text-green-600 bg-green-100'
   },
   {
     title: 'Housing & Shelter',
     schemes: '99 Schemes',
-    icon: Housing,
+    icon: Building,
     color: 'bg-blue-50 border-blue-200 hover:border-blue-400',
     iconColor: 'text-blue-600 bg-blue-100'
   },
   {
     title: 'Public Safety, Law & Justice',
     schemes: '10 Schemes',
-    icon: Justice,
+    icon: Scale,
     color: 'bg-blue-50 border-blue-200 hover:border-blue-400',
     iconColor: 'text-blue-600 bg-blue-100'
   },
   {
     title: 'Science, IT & Communications',
     schemes: '71 Schemes',
-    icon: Science,
+    icon: Cpu,
     color: 'bg-orange-50 border-orange-200 hover:border-orange-400',
     iconColor: 'text-orange-600 bg-orange-100'
   },
   {
     title: 'Skills & Employment',
     schemes: '287 Schemes',
-    icon: Skills,
+    icon: Users,
     color: 'bg-red-50 border-red-200 hover:border-red-400',
     iconColor: 'text-red-600 bg-red-100'
   },
   {
     title: 'Social welfare & Empowerment',
     schemes: '1321 Schemes',
-    icon: Women,
+    icon: UserCheck,
     color: 'bg-purple-50 border-purple-200 hover:border-purple-400',
     iconColor: 'text-purple-600 bg-purple-100'
   },
   {
     title: 'Sports & Culture',
     schemes: '131 Schemes',
-    icon: Sports,
+    icon: Trophy,
     color: 'bg-green-50 border-green-200 hover:border-green-400',
     iconColor: 'text-green-600 bg-green-100'
   },
   {
     title: 'Transport & Infrastructure',
     schemes: '53 Schemes',
-    icon: Transport,
+    icon: Truck,
     color: 'bg-blue-50 border-blue-200 hover:border-blue-400',
     iconColor: 'text-blue-600 bg-blue-100'
   },
   {
     title: 'Travel & Tourism',
     schemes: '38 Schemes',
-    icon: Travel,
+    icon: MapPin,
     color: 'bg-orange-50 border-orange-200 hover:border-orange-400',
     iconColor: 'text-orange-600 bg-orange-100'
   },
   {
     title: 'Utility & Sanitation',
     schemes: '35 Schemes',
-    icon: Utility,
+    icon: Settings,
     color: 'bg-red-50 border-red-200 hover:border-red-400',
     iconColor: 'text-red-600 bg-red-100'
   },
   {
     title: 'Women and Child',
     schemes: '383 Schemes',
-    icon: Women,
+    icon: UserCheck,
     color: 'bg-green-50 border-green-200 hover:border-green-400',
     iconColor: 'text-green-600 bg-green-100'
   }
