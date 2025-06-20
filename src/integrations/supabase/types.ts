@@ -9,7 +9,136 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      education_applications: {
+        Row: {
+          application_data: Json
+          id: string
+          scheme_id: string
+          submitted_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          application_data: Json
+          id?: string
+          scheme_id: string
+          submitted_at?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          application_data?: Json
+          id?: string
+          scheme_id?: string
+          submitted_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "education_applications_scheme_id_fkey"
+            columns: ["scheme_id"]
+            isOneToOne: false
+            referencedRelation: "education_scheme_definitions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      education_scheme_definitions: {
+        Row: {
+          benefits: string[] | null
+          category: string
+          created_at: string
+          description: string
+          eligibility: string[] | null
+          external_link: string | null
+          form_fields: Json | null
+          funding_amount: string | null
+          highlight: string | null
+          id: string
+          is_application_enabled: boolean | null
+          is_info_only: boolean | null
+          name: string
+          required_documents: string[] | null
+          status_stages: string[] | null
+          target_community: string | null
+          updated_at: string
+        }
+        Insert: {
+          benefits?: string[] | null
+          category: string
+          created_at?: string
+          description: string
+          eligibility?: string[] | null
+          external_link?: string | null
+          form_fields?: Json | null
+          funding_amount?: string | null
+          highlight?: string | null
+          id?: string
+          is_application_enabled?: boolean | null
+          is_info_only?: boolean | null
+          name: string
+          required_documents?: string[] | null
+          status_stages?: string[] | null
+          target_community?: string | null
+          updated_at?: string
+        }
+        Update: {
+          benefits?: string[] | null
+          category?: string
+          created_at?: string
+          description?: string
+          eligibility?: string[] | null
+          external_link?: string | null
+          form_fields?: Json | null
+          funding_amount?: string | null
+          highlight?: string | null
+          id?: string
+          is_application_enabled?: boolean | null
+          is_info_only?: boolean | null
+          name?: string
+          required_documents?: string[] | null
+          status_stages?: string[] | null
+          target_community?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      education_status_tracking: {
+        Row: {
+          application_id: string
+          current_status: string
+          id: string
+          remarks: string | null
+          status_history: Json
+          updated_at: string
+        }
+        Insert: {
+          application_id: string
+          current_status?: string
+          id?: string
+          remarks?: string | null
+          status_history?: Json
+          updated_at?: string
+        }
+        Update: {
+          application_id?: string
+          current_status?: string
+          id?: string
+          remarks?: string | null
+          status_history?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "education_status_tracking_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "education_applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

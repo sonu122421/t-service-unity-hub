@@ -52,7 +52,8 @@ const schemes = [
     schemes: '881 Schemes',
     icon: Book,
     color: 'bg-pink-50 border-pink-200 hover:border-pink-400',
-    iconColor: 'text-pink-600 bg-pink-100'
+    iconColor: 'text-pink-600 bg-pink-100',
+    route: '/education-services'
   },
   {
     title: 'Health & Wellness',
