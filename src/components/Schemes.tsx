@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -50,7 +49,7 @@ const schemes = [
   },
   {
     title: 'Education & Learning',
-    schemes: '881 Schemes',
+    schemes: '15 Schemes',
     icon: Book,
     color: 'bg-pink-50 border-pink-200 hover:border-pink-400',
     iconColor: 'text-pink-600 bg-pink-100',
@@ -61,7 +60,8 @@ const schemes = [
     schemes: '216 Schemes',
     icon: Heart,
     color: 'bg-green-50 border-green-200 hover:border-green-400',
-    iconColor: 'text-green-600 bg-green-100'
+    iconColor: 'text-green-600 bg-green-100',
+    route: '/health-services'
   },
   {
     title: 'Housing & Shelter',
@@ -90,7 +90,8 @@ const schemes = [
     schemes: '287 Schemes',
     icon: Users,
     color: 'bg-red-50 border-red-200 hover:border-red-400',
-    iconColor: 'text-red-600 bg-red-100'
+    iconColor: 'text-red-600 bg-red-100',
+    route: '/employment-services'
   },
   {
     title: 'Social welfare & Empowerment',

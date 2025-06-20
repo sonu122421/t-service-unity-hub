@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -60,7 +59,7 @@ const services = [
     description: 'Scholarships, admissions, certificates',
     icon: GraduationCap,
     color: 'bg-indigo-500',
-    popular: false,
+    popular: true,
     route: '/education-services'
   },
   {
