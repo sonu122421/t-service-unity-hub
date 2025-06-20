@@ -3,12 +3,22 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Download, ArrowRight } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface HeroSectionProps {
   onGetStarted: () => void;
 }
 
 export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
+  const { toast } = useToast();
+
+  const handleDownloadApp = () => {
+    toast({
+      title: "T-Service app is installing.",
+      duration: 3000,
+    });
+  };
+
   return (
     <section className="bg-gradient-to-br from-purple-600 via-purple-700 to-purple-800 text-white py-16 lg:py-24">
       <div className="container mx-auto px-4">
@@ -40,6 +50,7 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Button 
+                onClick={handleDownloadApp}
                 size="lg"
                 variant="outline" 
                 className="border-white text-white hover:bg-white hover:text-purple-800 px-8 py-3 text-lg rounded-full flex items-center"
@@ -68,9 +79,13 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
             <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-2xl max-w-sm w-full">
               <CardContent className="p-6">
                 <div className="space-y-4">
-                  {/* App header */}
-                  <div className="bg-blue-600 text-white p-4 rounded-lg text-center">
-                    <h3 className="text-xl font-bold mb-2">T-Service</h3>
+                  {/* Telangana Emblem */}
+                  <div className="flex justify-center p-4">
+                    <img 
+                      src="https://upload.wikimedia.org/wikipedia/en/thumb/6/61/Emblem_of_Telangana.svg/1200px-Emblem_of_Telangana.svg.png"
+                      alt="Emblem of Telangana"
+                      className="w-24 h-24 object-contain"
+                    />
                   </div>
 
                   {/* App buttons */}
