@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { toast } from 'sonner';
@@ -25,10 +25,11 @@ import {
 const schemes = [
   {
     title: 'Agriculture, Rural & Environment',
-    schemes: '523 Schemes',
+    schemes: '24 Schemes',
     icon: Home,
     color: 'bg-green-50 border-green-200 hover:border-green-400',
-    iconColor: 'text-green-600 bg-green-100'
+    iconColor: 'text-green-600 bg-green-100',
+    route: '/agriculture-schemes'
   },
   {
     title: 'Banking, Financial Services and Insurance',
@@ -131,15 +132,21 @@ const schemes = [
 ];
 
 export const Schemes = () => {
+  const navigate = useNavigate();
   const { isAuthenticated } = useAuthStore();
   const { t } = useLanguage();
 
-  const handleSchemeClick = () => {
+  const handleSchemeClick = (scheme: typeof schemes[0]) => {
     if (!isAuthenticated) {
       toast.error(t('auth.loginRequired'));
       return;
     }
-    // Handle scheme navigation here
+    
+    if (scheme.route) {
+      navigate(scheme.route);
+    } else {
+      // Handle other scheme navigation here
+    }
   };
 
   return (
@@ -155,7 +162,7 @@ export const Schemes = () => {
             <Button 
               variant="ghost" 
               className="text-purple-600 hover:text-purple-700 font-medium"
-              onClick={handleSchemeClick}
+              onClick={() => handleSchemeClick(schemes[0])}
             >
               {t('schemes.viewAll')}
             </Button>
@@ -172,7 +179,7 @@ export const Schemes = () => {
               <Card 
                 key={index}
                 className={`border-2 transition-all duration-300 cursor-pointer hover:shadow-lg hover:-translate-y-1 ${scheme.color}`}
-                onClick={handleSchemeClick}
+                onClick={() => handleSchemeClick(scheme)}
               >
                 <CardHeader className="pb-3">
                   <div className="flex items-start space-x-3">
