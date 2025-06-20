@@ -1,9 +1,11 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, ChevronDown, Globe, User } from 'lucide-react';
+import { Menu, X, ChevronDown, User } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 interface HeaderProps {
   onAuthClick?: () => void;
@@ -14,6 +16,7 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
   const { isAuthenticated, user, logout } = useAuthStore();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useLanguage();
 
   const handleAuthAction = () => {
     if (isAuthenticated) {
@@ -94,20 +97,20 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
                 className="h-12 w-12 object-contain"
               />
               <div>
-                <h1 className="text-2xl font-bold text-gray-800">T-Service</h1>
-                <p className="text-sm text-gray-600">Government of Telangana</p>
+                <h1 className="text-2xl font-bold text-gray-800">{t('header.title')}</h1>
+                <p className="text-sm text-gray-600">{t('header.subtitle')}</p>
               </div>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <button onClick={scrollToServices} className="text-gray-700 hover:text-purple-700 font-medium">Services</button>
-              <button onClick={scrollToSchemes} className="text-gray-700 hover:text-purple-700 font-medium">Schemes</button>
-              <button onClick={handleFeedbackClick} className="text-gray-700 hover:text-purple-700 font-medium">Feedback</button>
-              <a href="#news" className="text-gray-700 hover:text-purple-700 font-medium">News</a>
+              <button onClick={scrollToServices} className="text-gray-700 hover:text-purple-700 font-medium">{t('header.services')}</button>
+              <button onClick={scrollToSchemes} className="text-gray-700 hover:text-purple-700 font-medium">{t('header.schemes')}</button>
+              <button onClick={handleFeedbackClick} className="text-gray-700 hover:text-purple-700 font-medium">{t('header.feedback')}</button>
+              <a href="#news" className="text-gray-700 hover:text-purple-700 font-medium">{t('header.news')}</a>
               <div className="relative group">
                 <button className="flex items-center text-gray-700 hover:text-purple-700 font-medium">
-                  Help
+                  {t('header.help')}
                   <ChevronDown className="w-4 h-4 ml-1" />
                 </button>
               </div>
@@ -118,8 +121,8 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
               {/* CM Info */}
               <div className="flex items-center space-x-3">
                 <div className="text-right">
-                  <div className="text-sm font-semibold text-gray-800">Sri A. Revanth Reddy</div>
-                  <div className="text-xs text-gray-600">Hon'ble Chief Minister</div>
+                  <div className="text-sm font-semibold text-gray-800">{t('header.cmName')}</div>
+                  <div className="text-xs text-gray-600">{t('header.cmTitle')}</div>
                 </div>
                 <img 
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5LPgMSCXDqdmaLGRK8YZc2GbLwEIKXX_LcQ&s" 
@@ -130,10 +133,7 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
 
               {/* Language and Auth */}
               <div className="flex items-center space-x-4">
-                <button className="flex items-center text-gray-700 hover:text-purple-700">
-                  <Globe className="w-4 h-4 mr-1" />
-                  English
-                </button>
+                <LanguageSelector />
                 
                 {isAuthenticated ? (
                   <div className="flex items-center space-x-2">
@@ -142,14 +142,14 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
                       className="bg-purple-600 hover:bg-purple-700 text-white flex items-center"
                     >
                       <User className="w-4 h-4 mr-2" />
-                      {user?.name || 'Profile'}
+                      {user?.name || t('header.profile')}
                     </Button>
                     <Button
                       onClick={handleLogout}
                       variant="outline"
                       className="border-purple-600 text-purple-600 hover:bg-purple-50"
                     >
-                      Logout
+                      {t('header.logout')}
                     </Button>
                   </div>
                 ) : (
@@ -157,7 +157,7 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
                     onClick={handleAuthAction}
                     className="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-full"
                   >
-                    Register / Login
+                    {t('header.login')}
                   </Button>
                 )}
               </div>
@@ -176,11 +176,15 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
           {isMenuOpen && (
             <div className="md:hidden mt-4 py-4 border-t">
               <nav className="flex flex-col space-y-4">
-                <button onClick={scrollToServices} className="text-gray-700 hover:text-purple-700 font-medium text-left">Services</button>
-                <button onClick={scrollToSchemes} className="text-gray-700 hover:text-purple-700 font-medium text-left">Schemes</button>
-                <button onClick={handleFeedbackClick} className="text-gray-700 hover:text-purple-700 font-medium text-left">Feedback</button>
-                <a href="#news" className="text-gray-700 hover:text-purple-700 font-medium">News</a>
-                <a href="#help" className="text-gray-700 hover:text-purple-700 font-medium">Help</a>
+                <button onClick={scrollToServices} className="text-gray-700 hover:text-purple-700 font-medium text-left">{t('header.services')}</button>
+                <button onClick={scrollToSchemes} className="text-gray-700 hover:text-purple-700 font-medium text-left">{t('header.schemes')}</button>
+                <button onClick={handleFeedbackClick} className="text-gray-700 hover:text-purple-700 font-medium text-left">{t('header.feedback')}</button>
+                <a href="#news" className="text-gray-700 hover:text-purple-700 font-medium">{t('header.news')}</a>
+                <a href="#help" className="text-gray-700 hover:text-purple-700 font-medium">{t('header.help')}</a>
+                
+                <div className="pt-2">
+                  <LanguageSelector />
+                </div>
                 
                 {isAuthenticated ? (
                   <div className="flex flex-col space-y-2">
@@ -189,14 +193,14 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
                       className="bg-purple-600 hover:bg-purple-700 text-white"
                     >
                       <User className="w-4 h-4 mr-2" />
-                      {user?.name || 'Profile'}
+                      {user?.name || t('header.profile')}
                     </Button>
                     <Button
                       onClick={handleLogout}
                       variant="outline"
                       className="border-purple-600 text-purple-600"
                     >
-                      Logout
+                      {t('header.logout')}
                     </Button>
                   </div>
                 ) : (
@@ -204,7 +208,7 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
                     onClick={handleAuthAction}
                     className="bg-black hover:bg-gray-800 text-white rounded-full"
                   >
-                    Register / Login
+                    {t('header.login')}
                   </Button>
                 )}
               </nav>

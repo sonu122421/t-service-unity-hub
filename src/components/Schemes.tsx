@@ -2,6 +2,9 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useAuthStore } from '@/store/authStore';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { toast } from 'sonner';
 import { 
   Home,
   Banknote,
@@ -128,6 +131,17 @@ const schemes = [
 ];
 
 export const Schemes = () => {
+  const { isAuthenticated } = useAuthStore();
+  const { t } = useLanguage();
+
+  const handleSchemeClick = () => {
+    if (!isAuthenticated) {
+      toast.error(t('auth.loginRequired'));
+      return;
+    }
+    // Handle scheme navigation here
+  };
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -135,19 +149,19 @@ export const Schemes = () => {
           <div className="flex justify-between items-center mb-6">
             <div className="flex-1">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 text-center">
-                Schemes
+                {t('schemes.title')}
               </h2>
             </div>
             <Button 
               variant="ghost" 
               className="text-purple-600 hover:text-purple-700 font-medium"
+              onClick={handleSchemeClick}
             >
-              View All
+              {t('schemes.viewAll')}
             </Button>
           </div>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Comprehensive range of government schemes organized by Telangana Government. 
-            Find what you need quickly and efficiently.
+            {t('schemes.subtitle')}
           </p>
         </div>
 
@@ -158,6 +172,7 @@ export const Schemes = () => {
               <Card 
                 key={index}
                 className={`border-2 transition-all duration-300 cursor-pointer hover:shadow-lg hover:-translate-y-1 ${scheme.color}`}
+                onClick={handleSchemeClick}
               >
                 <CardHeader className="pb-3">
                   <div className="flex items-start space-x-3">

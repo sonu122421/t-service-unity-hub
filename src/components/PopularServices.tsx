@@ -1,7 +1,11 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '@/store/authStore';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { toast } from 'sonner';
 import { 
   FileText, 
   Home, 
@@ -90,8 +94,15 @@ const services = [
 
 export const PopularServices = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuthStore();
+  const { t } = useLanguage();
 
   const handleServiceClick = (service: typeof services[0]) => {
+    if (!isAuthenticated) {
+      toast.error(t('auth.loginRequired'));
+      return;
+    }
+
     if (service.route) {
       navigate(service.route);
     } else {
@@ -105,11 +116,10 @@ export const PopularServices = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
-            Popular Services
+            {t('services.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Quick access to the most commonly used government services. 
-            Everything you need, all in one place.
+            {t('services.subtitle')}
           </p>
         </div>
 
@@ -149,7 +159,7 @@ export const PopularServices = () => {
 
         <div className="text-center mt-12">
           <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
-            View All Services
+            {t('services.viewAll')}
           </button>
         </div>
       </div>
