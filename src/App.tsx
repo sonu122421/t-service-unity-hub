@@ -12,6 +12,7 @@ import TWalletServices from "./pages/TWalletServices";
 import MeeSeva from "./pages/MeeSeva";
 import Dharani from "./pages/Dharani";
 import RTAServices from "./pages/RTAServices";
+import EducationServices from "./pages/EducationServices";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/meeseva" element={<MeeSeva />} />
             <Route path="/dharani" element={<Dharani />} />
             <Route path="/rta-services" element={<RTAServices />} />
+            <Route path="/education-services" element={<EducationServices />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
