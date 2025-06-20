@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, ChevronDown, Globe, User } from 'lucide-react';
@@ -28,11 +29,7 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
   };
 
   const handleLogoClick = () => {
-    if (isAuthenticated) {
-      navigate('/dashboard');
-    } else {
-      navigate('/');
-    }
+    navigate('/');
   };
 
   const scrollToServices = () => {
@@ -92,7 +89,7 @@ export const Header = ({ onAuthClick }: HeaderProps) => {
               onClick={handleLogoClick}
             >
               <img 
-                src="https://www.en.etemaaddaily.com/pages/world/hyderabad/7982telangana.png" 
+                src="https://upload.wikimedia.org/wikipedia/en/thumb/6/61/Emblem_of_Telangana.svg/1200px-Emblem_of_Telangana.svg.png" 
                 alt="Telangana Government" 
                 className="h-12 w-12 object-contain"
               />

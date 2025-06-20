@@ -1,8 +1,11 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import { PageTransition } from '@/components/PageTransition';
 import { 
   Car, 
   FileText, 
@@ -15,7 +18,9 @@ import {
   Award,
   Settings,
   Phone,
-  Clipboard
+  Clipboard,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { LearnerLicenseBooking } from '@/components/rta/LearnerLicenseBooking';
 import { DrivingLicense } from '@/components/rta/DrivingLicense';
@@ -124,20 +129,23 @@ const RTAServices = () => {
 
   if (selectedService) {
     return (
-      <div className="min-h-screen bg-white">
-        <Header />
-        <div className="bg-gray-50">
-          {renderServiceComponent()}
+      <PageTransition>
+        <div className="min-h-screen bg-white">
+          <Header />
+          <div className="bg-gray-50">
+            {renderServiceComponent()}
+          </div>
+          <Footer />
         </div>
-      </div>
+      </PageTransition>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <div className="bg-gray-50">
-        <div className="container mx-auto px-4 py-8">
+    <PageTransition>
+      <div className="min-h-screen bg-white">
+        <Header />
+        <main className="container mx-auto px-4 py-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
               RTA Transport Services
@@ -149,69 +157,26 @@ const RTAServices = () => {
           </div>
 
           {/* Main Services */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {mainServices.map((service) => {
-              const IconComponent = service.icon;
-              return (
-                <Card 
-                  key={service.id}
-                  className="hover:shadow-lg transition-all duration-300 cursor-pointer group hover:-translate-y-1"
-                  onClick={() => handleServiceClick(service.id)}
-                >
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <div className={`p-3 rounded-lg ${service.color} text-white group-hover:scale-110 transition-transform`}>
-                        <IconComponent className="w-6 h-6" />
-                      </div>
-                      {service.popular && (
-                        <Badge className="bg-yellow-500 text-yellow-900 hover:bg-yellow-500">
-                          Popular
-                        </Badge>
-                      )}
-                    </div>
-                    <CardTitle className="text-lg font-semibold group-hover:text-purple-700 transition-colors">
-                      {service.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      {service.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-
-          {/* Additional Services */}
-          <div className="text-center mb-8">
-            <Button 
-              onClick={() => setShowMore(!showMore)}
-              variant="outline"
-              className="bg-purple-600 text-white hover:bg-purple-700 border-purple-600"
-            >
-              {showMore ? 'Show Less' : 'View More Services'}
-            </Button>
-          </div>
-
-          {showMore && (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {additionalServices.map((service) => {
+          <section className="mb-12">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {mainServices.map((service) => {
                 const IconComponent = service.icon;
                 return (
                   <Card 
                     key={service.id}
                     className="hover:shadow-lg transition-all duration-300 cursor-pointer group hover:-translate-y-1"
-                    onClick={() => console.log(`${service.title} clicked - Coming Soon!`)}
+                    onClick={() => handleServiceClick(service.id)}
                   >
                     <CardHeader className="pb-3">
                       <div className="flex items-center justify-between">
                         <div className={`p-3 rounded-lg ${service.color} text-white group-hover:scale-110 transition-transform`}>
                           <IconComponent className="w-6 h-6" />
                         </div>
-                        <Badge variant="outline" className="text-gray-500">
-                          Coming Soon
-                        </Badge>
+                        {service.popular && (
+                          <Badge className="bg-yellow-500 text-yellow-900 hover:bg-yellow-500">
+                            Popular
+                          </Badge>
+                        )}
                       </div>
                       <CardTitle className="text-lg font-semibold group-hover:text-purple-700 transition-colors">
                         {service.title}
@@ -226,6 +191,62 @@ const RTAServices = () => {
                 );
               })}
             </div>
+          </section>
+
+          {/* Additional Services */}
+          <div className="text-center mb-8">
+            <Button 
+              onClick={() => setShowMore(!showMore)}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+            >
+              {showMore ? (
+                <>
+                  <ChevronUp className="w-4 h-4 mr-2" />
+                  View Less
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="w-4 h-4 mr-2" />
+                  View More Services
+                </>
+              )}
+            </Button>
+          </div>
+
+          {showMore && (
+            <section className="mb-12 animate-fade-in">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {additionalServices.map((service) => {
+                  const IconComponent = service.icon;
+                  return (
+                    <Card 
+                      key={service.id}
+                      className="hover:shadow-lg transition-all duration-300 cursor-pointer group hover:-translate-y-1"
+                      onClick={() => console.log(`${service.title} clicked - Coming Soon!`)}
+                    >
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center justify-between">
+                          <div className={`p-3 rounded-lg ${service.color} text-white group-hover:scale-110 transition-transform`}>
+                            <IconComponent className="w-6 h-6" />
+                          </div>
+                          <Badge variant="outline" className="text-gray-500">
+                            Coming Soon
+                          </Badge>
+                        </div>
+                        <CardTitle className="text-lg font-semibold group-hover:text-purple-700 transition-colors">
+                          {service.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-gray-600 text-sm leading-relaxed">
+                          {service.description}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </section>
           )}
 
           {/* Information Section */}
@@ -253,9 +274,10 @@ const RTAServices = () => {
               </div>
             </div>
           </div>
-        </div>
+        </main>
+        <Footer />
       </div>
-    </div>
+    </PageTransition>
   );
 };
 
