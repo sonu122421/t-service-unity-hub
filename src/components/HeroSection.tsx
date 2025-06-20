@@ -71,11 +71,13 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
             <div className="bg-white rounded-2xl p-8 shadow-2xl">
               {/* Telangana Government Logo */}
               <div className="text-center mb-8">
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/en/thumb/6/61/Emblem_of_Telangana.svg/1200px-Emblem_of_Telangana.svg.png" 
-                  alt="Government of Telangana" 
-                  className="h-20 w-20 object-contain mx-auto"
-                />
+                <div className="w-24 h-24 mx-auto flex items-center justify-center">
+                  <img 
+                    src="https://upload.wikimedia.org/wikipedia/en/thumb/6/61/Emblem_of_Telangana.svg/1200px-Emblem_of_Telangana.svg.png" 
+                    alt="Government of Telangana" 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
               </div>
 
               {/* Action buttons */}
@@ -97,19 +99,19 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
               {/* Features list */}
               <div className="space-y-3 text-gray-600">
                 <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <span>All government services in one place</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <span>Secure Aadhaar-based authentication</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <span>Real-time service tracking</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Check className="w-5 h-5 text-green-500" />
+                  <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <span>Multiple language support</span>
                 </div>
               </div>
