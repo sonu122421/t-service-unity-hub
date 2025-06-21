@@ -8,7 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle, Clock, FileText, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 import { useAuthStore } from '@/store/authStore';
 import { toast } from 'sonner';
 
@@ -93,22 +92,21 @@ export const ServiceForm = ({ service, isOpen, onClose }: ServiceFormProps) => {
     try {
       const newApplicationId = generateApplicationId();
       
-      // Save application to Supabase
-      const { error } = await supabase
-        .from('service_applications')
-        .insert({
-          id: newApplicationId,
-          user_id: user.id,
-          service_type: service.id,
-          service_name: service.title,
-          application_data: formData,
-          status: 'Submitted'
-        });
+      // Store application in localStorage for now
+      const applicationData = {
+        id: newApplicationId,
+        user_id: user.id,
+        service_type: service.id,
+        service_name: service.title,
+        application_data: formData,
+        status: 'Submitted',
+        submitted_at: new Date().toISOString()
+      };
 
-      if (error) {
-        console.error('Error saving application:', error);
-        // Continue with local storage as fallback
-      }
+      // Save to localStorage
+      const existingApplications = JSON.parse(localStorage.getItem('applications') || '[]');
+      existingApplications.push(applicationData);
+      localStorage.setItem('applications', JSON.stringify(existingApplications));
 
       setApplicationId(newApplicationId);
       setShowStatus(true);

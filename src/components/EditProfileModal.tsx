@@ -114,7 +114,7 @@ export const EditProfileModal = ({ isOpen, onClose }: EditProfileModalProps) => 
               value={formData.aadhaar}
               onChange={(e) => handleInputChange('aadhaar', e.target.value)}
               placeholder="Enter your Aadhaar number"
-              max Length={12}
+              maxLength={12}
             />
           </div>
 

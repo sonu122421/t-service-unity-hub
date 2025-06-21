@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -118,7 +117,7 @@ const RTAServices = () => {
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Services
               </Button>
-              {ActiveComponent && <ActiveComponent onClose={() => setActiveService(null)} />}
+              {ActiveComponent && <ActiveComponent onBack={() => setActiveService(null)} />}
             </div>
           )}
         </main>
